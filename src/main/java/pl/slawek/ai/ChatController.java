@@ -14,10 +14,14 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-
     @GetMapping("joke")
     String getJoke() {
         return chatService.getJoke();
+    }
+
+    @GetMapping("katastrofa")
+    String getDisasterString() {
+        return chatService.getDisasterString();
     }
 
     @GetMapping("nobel")
@@ -28,5 +32,10 @@ public class ChatController {
     @GetMapping("story")
     StoryDto getStory() {
         return chatService.getStory();
+    }
+
+    @GetMapping("disaster")
+    DisasterAddDTO getDisaster() {
+        return chatService.getDisasterRecord();
     }
 }

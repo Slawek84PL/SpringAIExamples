@@ -21,6 +21,10 @@ public class ChatService {
         return chatClient.prompt("Powiedz żart o programistach").call().content();
     }
 
+    String getDisasterString() {
+        return chatClient.prompt("Opisz jakąś katastrofę w 20 słowach").call().content();
+    }
+
     String getNobelWinner() {
         OpenAiChatOptions chatOptions = OpenAiChatOptions.builder()
                 .withTemperature(0.8)
@@ -33,7 +37,6 @@ public class ChatService {
                 """;
 
         Prompt prompt = new Prompt(prompString, chatOptions);
-
 
         return chatClient.prompt(prompt).call().content();
     }
@@ -50,15 +53,20 @@ public class ChatService {
             Napisz po polsku historię z gatunku {gatunek} na temat: {temat}
             """;
 
-        ChatClient.CallResponseSpec response = chatClient.prompt()
+        return chatClient.prompt()
                 .user(u -> u.text(promptString)
-                        .param("gatunek", "zabawny")
-                        .param("temat", "kot i dziecko imieniem Olek"))
+                        .param("gatunek", "Komedia")
+                        .param("temat", "praca"))
                 .options(chatOptions)
-                .call();
+                .call()
+                .entity(StoryDto.class);
+    }
 
-//        System.out.println(response.chatResponse().getMetadata());
+    DisasterAddDTO getDisasterRecord() {
+        String promptString = "Podaj dane jakiejś katastrofy";
 
-        return response.entity(StoryDto.class);
+        return chatClient.prompt(promptString)
+                .call()
+                .entity(DisasterAddDTO.class);
     }
 }
