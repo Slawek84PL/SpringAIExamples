@@ -23,7 +23,7 @@ public class VectoreStoreController {
     }
 
     @GetMapping("get-data")
-    String loadDataFromVectoreStore() {
+    String loadDataFromVectorStore() {
         return vectoreStoreService.testVectorDb();
     }
 }
